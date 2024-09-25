@@ -12,3 +12,7 @@ from google.colab import drive
 from scipy.interpolate import interp1d
 import math
 
+# Carga el archivo CSV con dos delimitadores (espacio y |)
+df = pd.read_csv("Q_MEDIA_D@11035020.data", delimiter=r'\s+\|\s+', engine='python',decimal='.')
+# Muestra las primeras filas del DataFrame
+df.head()
