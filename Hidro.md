@@ -1,4 +1,4 @@
-# Hidro-DISPAC
+# **Hidro-DISPAC**
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -14,7 +14,7 @@ import math
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
-# ENTRADA DE INFORMACIÓN
+# **ENTRADA DE INFORMACIÓN**
 ## Abre el cuadro de diálogo para seleccionar un archivo
 Tk().withdraw() ## Evita que aparezca la ventana principal de Tkinter
 file_path = askopenfilename(title="Selecciona un archivo", filetypes=[("Data files", "*.data")])
@@ -26,7 +26,7 @@ df = pd.read_csv(file_path, delimiter='|', decimal='.')
 ## Muestra las primeras filas del DataFrame
 print(df.head())
 
-# INFORMACIÓN DE CAUDAL
+# **INFORMACIÓN DE CAUDAL**
 try:
     df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d %H:%M:%S')
 except KeyError:
@@ -36,3 +36,4 @@ df['Fecha'] = pd.to_datetime(df['Fecha'], format='%Y-%m-%d %H:%M:%S')
 print(df.head())
 print(df.dtypes)
 
+# **ColorPlot** Calidad de la información
