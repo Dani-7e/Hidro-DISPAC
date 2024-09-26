@@ -16,7 +16,7 @@ from tkinter.filedialog import askopenfilename
 
 # ENTRADA DE INFORMACIÓN
 ## Abre el cuadro de diálogo para seleccionar un archivo
-Tk().withdraw() ### Evita que aparezca la ventana principal de Tkinter
+Tk().withdraw() ## Evita que aparezca la ventana principal de Tkinter
 file_path = askopenfilename(title="Selecciona un archivo", filetypes=[("Data files", "*.data")])
 
 ## Carga el archivo CSV con delimitadores de espacio y '|'
@@ -27,5 +27,12 @@ df = pd.read_csv(file_path, delimiter='|', decimal='.')
 print(df.head())
 
 # INFORMACIÓN DE CAUDAL
+try:
+    df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d %H:%M:%S')
+except KeyError:
+    print("La columna 'Fecha' no existe en el DataFrame")
 
+df['Fecha'] = pd.to_datetime(df['Fecha'], format='%Y-%m-%d %H:%M:%S')
+print(df.head())
+print(df.dtypes)
 
