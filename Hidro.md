@@ -22,6 +22,28 @@ df = pd.read_csv(file_path, delimiter='|', decimal='.')
 print(df.head())
 
 # **INFORMACIÓN DE CAUDAL**
+## **ColorPlott** Calidad de la información
+### Suponiendo que tu dataframe se llama df y tiene las columnas 'Fecha' y 'Valor'
+df['Fecha'] = pd.to_datetime(df['Fecha'])  # Asegurarse de que 'Fecha' sea de tipo datetime
+
+### Crear una columna para el año y el día del año
+df['Year'] = df['Fecha'].dt.year
+df['DayOfYear'] = df['Fecha'].dt.dayofyear
+
+### Agrupar por Year y DayOfYear, y calcular la media para manejar posibles duplicados
+df_grouped = df.groupby(['Year', 'DayOfYear'])['Valor'].mean().reset_index()
+
+### Crear un dataframe pivot con todos los días del año y todos los años
+df_pivot = df_grouped.pivot(index='Year', columns='DayOfYear', values='Valor')
+
+### Crear el heatmap
+plt.figure(figsize=(15, 10))
+sns.heatmap(df_pivot.isnull(), cmap='viridis', cbar=False)
+plt.title('Visualización de Valores Faltantes en el DataFrame de Caudal')
+plt.xlabel('Día del Año')
+plt.ylabel('Año')
+plt.show()
+
 try:
     df["Fecha"] = pd.to_datetime(df["Fecha"], format='%Y-%m-%d %H:%M:%S')
 except KeyError:
@@ -44,7 +66,6 @@ print(filtered_Q.head())
 
 ### Este método calcula las siguientes estadísticas: count: Número de valores, mean: Promedio, std: Desviación estándar, min: Valor mínimo, 25%: Primer cuartil, 50%: Mediana, 75%: Tercer cuartil, max: Valor máximo.
 
-# **ColorPlot** Calidad de la información
 
 
 
